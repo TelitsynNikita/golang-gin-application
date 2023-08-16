@@ -1,8 +1,16 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/TelitsynNikita/golang-gin-application/pkg/service"
+	"github.com/gin-gonic/gin"
+)
 
 type Handler struct {
+	services *service.Service
+}
+
+func NewHandler(services *service.Service) *Handler {
+	return &Handler{services: services}
 }
 
 func (h *Handler) InitRoutes() *gin.Engine {
@@ -30,7 +38,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 				items.GET("/", h.getAllItems)
 				items.GET("/:item-id", h.getItemByID)
 				items.PUT("/:item-id", h.updateItem)
-				items.DELETE("/:item-id", h.deleteList)
+				items.DELETE("/:item-id", h.deleteItem)
 			}
 		}
 	}
